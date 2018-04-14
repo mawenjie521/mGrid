@@ -53,7 +53,7 @@
     }
 
     ChartObj.prototype.addNode=function(node){
-        if(!this.nodesObj[node.id]){
+        if(!node.isMerged){
             this.nodesObj[node.id]=node;
             
             var left="0px", top="0px", width = 0, height = 0;
@@ -83,10 +83,12 @@
     }
 
     ChartObj.prototype.removeNodes=function(sColIndex, sRowIndex, eColIndex, eRowIndex){
+        var id = $.createId(sColIndex, sRowIndex);
+        var node = this.nodesObj[id];
+
         if(!eColIndex||!eRowIndex||eColIndex==0||eRowIndex==0){
-            var id = $.createId(sColIndex, sRowIndex);
             $("#"+id).remove();
-            delete this.nodesObj[id];
+            if(node.colIndex!=sColIndex && node.rowIndex!=sRowIndex) node.isMerged=true;
         }
 
         if((sColIndex||sRowIndex)){
@@ -95,7 +97,7 @@
                     var colIndex = xi;
                     var id = $.createId(colIndex, sRowIndex);
                     $("#"+id).remove();
-                    delete this.nodesObj[id];
+                    if(node.colIndex!=sColIndex && node.rowIndex!=sRowIndex) node.isMerged=true;
                 }
             }
 
@@ -104,7 +106,7 @@
                     var rowIndex = yi;
                     var id = $.createId(sColIndex, rowIndex);
                     $("#"+id).remove();
-                    delete this.nodesObj[id];
+                    if(node.colIndex!=sColIndex && node.rowIndex!=sRowIndex) node.isMerged=true;
                 }
             }
         }
@@ -115,7 +117,7 @@
                     var colIndex = sColIndex+i, rowIndex = sRowIndex+j;
                     var id = $.createId(colIndex, rowIndex);
                     $("#"+id).remove();
-                    delete this.nodesObj[id];
+                    if(node.colIndex!=sColIndex && node.rowIndex!=sRowIndex) node.isMerged=true;
                 }
             }
         }
@@ -131,7 +133,7 @@
         this.colSpans = 1;
         this.rowSpans=1;
 
-        this.isMerged=false;
+        this.isMerged = false;
         
         this.style =$.extend(true, {}, _options.style);
         
