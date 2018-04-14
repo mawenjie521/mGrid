@@ -83,10 +83,9 @@
     }
 
     ChartObj.prototype.removeNodes=function(sColIndex, sRowIndex, eColIndex, eRowIndex){
-        var id = $.createId(sColIndex, sRowIndex);
-        var node = this.nodesObj[id];
-
         if(!eColIndex||!eRowIndex||eColIndex==0||eRowIndex==0){
+            var id = $.createId(sColIndex, sRowIndex);
+            var node = this.nodesObj[id];
             $("#"+id).remove();
             if(node.colIndex!=sColIndex && node.rowIndex!=sRowIndex) node.isMerged=true;
         }
@@ -94,6 +93,8 @@
         if((sColIndex||sRowIndex)){
             if((eColIndex>sColIndex)&&(eRowIndex===sRowIndex)){
                 for(var xi=sColIndex;xi<eColIndex;xi++){
+                    var id = $.createId(xi, sRowIndex);
+                    var node = this.nodesObj[id];
                     var colIndex = xi;
                     var id = $.createId(colIndex, sRowIndex);
                     $("#"+id).remove();
@@ -103,6 +104,8 @@
 
             if((eColIndex==sColIndex)&&(eRowIndex>sRowIndex)){
                 for(var yi=sRowIndex;yi<eRowIndex;yi++){
+                    var id = $.createId(sColIndex, yi);
+                    var node = this.nodesObj[id];
                     var rowIndex = yi;
                     var id = $.createId(sColIndex, rowIndex);
                     $("#"+id).remove();
@@ -115,6 +118,8 @@
             for(var i=0,cl=eColIndex-sColIndex;i<cl;i++){
                 for(var j=0,rl=eRowIndex-sRowIndex;j<rl;j++){
                     var colIndex = sColIndex+i, rowIndex = sRowIndex+j;
+                    var id = $.createId(colIndex, rowIndex);
+                    var node = this.nodesObj[id];
                     var id = $.createId(colIndex, rowIndex);
                     $("#"+id).remove();
                     if(node.colIndex!=sColIndex && node.rowIndex!=sRowIndex) node.isMerged=true;

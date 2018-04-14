@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>职务图表</title>
+		<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
+		<script src="js/appbase.js" ></script>
+		
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="js/mGrid.js" ></script>
+	</head>
+	<body>
+		<div id="indexTab"></div>
+	</body>
+	<script>
+		
+		
+		var charObj = $("#indexTab").dimesionsChart(options);
+		var nodesObj=charObj.getNodeByIndex(3,3);
+
+		nodesObj.colSpansN(3);
+
+		//alert(1111);
+	</script>
+</html>
