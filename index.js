@@ -130,6 +130,8 @@
         this.rowIndex=rowIndex;
         this.colSpans = 1;
         this.rowSpans=1;
+
+        this.isMerged=false;
         
         this.style =$.extend(true, {}, _options.style);
         
